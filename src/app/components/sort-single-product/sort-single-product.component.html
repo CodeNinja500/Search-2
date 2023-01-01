@@ -1,0 +1,23 @@
+<mat-card>
+    <mat-card-title>Sorting</mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="sortForm" (ngSubmit)="onSortFormSubmitted(sortForm)">
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose an order</mat-label>
+                    <mat-select formControlName="order">
+                        <mat-option *ngFor="let item of sortingOpt$ | async" [value]="item">
+                            {{item}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-error *ngIf="sortForm.get('order')!.invalid">order is invalid</mat-error>
+            </div>
+            <div><button type="submit" mat-raised-button color="primary">Submit</button></div>
+        </form>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let item of productList$ | async">
+                {{item.id}} {{item.title}} {{item.price}}</mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
