@@ -8,8 +8,10 @@ export class ProductsService {
   constructor(private _httpClient: HttpClient) {}
 
   getAll(): Observable<ProductModel[]> {
-    return this._httpClient.get<ProductModel[]>(
-      'https://fakestoreapi.com/products'
-    );
+    return this._httpClient.get<ProductModel[]>('https://fakestoreapi.com/products');
+  }
+
+  getAllCategories(): Observable<string[]> {
+    return this._httpClient.get<string[]>('https://fakestoreapi.com/products/categories');
   }
 }

@@ -1,0 +1,39 @@
+<mat-card>
+    <mat-card-title>
+        Filters
+    </mat-card-title>
+    <form [formGroup]="filterForm" (ngSubmit)="onFilterSubmitted(filterForm)">
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a department</mat-label>
+                <mat-select formControlName="department">
+                    <mat-option *ngFor="let item of departmentList$ | async" [value]="item.id" (click)='selectDepartment(item.name)'>
+                        {{item.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-label>Choose a role</mat-label>
+            <div>
+                <mat-radio-group formControlName="role">
+                    <mat-radio-button *ngFor="let item of roleList$ | async" [value]="item.id">{{item.role}}</mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+    </form>
+    <mat-card-content>
+        <h1>Users</h1>
+        <mat-list role="list">
+            <ng-container *ngIf="activeDepartment$|async as dept">
+                <mat-list-item role="listitem" *ngFor="let item of userList$ | async">{{item.email}} {{dept}}
+                </mat-list-item>
+
+            </ng-container>
+        </mat-list>
+
+    </mat-card-content>
+</mat-card>
+<p>
+    {{filterForm.value|json}}
+</p>

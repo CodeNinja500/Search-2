@@ -1,0 +1,22 @@
+<mat-card>
+    <mat-card-title>
+        Products
+    </mat-card-title>
+    <form [formGroup]="filterForm" (ngSubmit)="onFilterFormSubmitted(filterForm)">
+        <div>
+            <mat-label>Choose an option</mat-label>
+            <div><mat-radio-group formControlName="category">
+                    <mat-radio-button *ngFor="let item of categoryList$ | async" [value]="item">{{item}}</mat-radio-button>
+                </mat-radio-group></div>
+        </div>
+    </form>
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let item of productList$ | async">{{item.title}}
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
+<p>
+    {{filterForm.value|json}}
+</p>
